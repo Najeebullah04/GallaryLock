@@ -1,10 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import LockScreen from './pages/LockScreen';
 import HomeScreen from './pages/HomeScreen';
-export default function App() {
+import MyTabs from './pages/HomeScreen';
+import Photos from './pages/Photos';
+import Videos from './pages/Videos';
+
+
+export default function App({navigation}) {
   return (
-    <LockScreen/>
+   
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
   );
 }
 

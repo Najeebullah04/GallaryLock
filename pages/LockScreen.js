@@ -10,7 +10,7 @@ function LockScreen() {
         setText(text.slice(0,-1));
       }
     return (       
-        <View style={{flex:1 , backgroundColor: "black"}}>
+        <View style={{flex:1 , backgroundColor: "#29293d"}}>
             <Text style={styles.header}><Icon name="lock" size={25} color="white" /></Text>
             <View style={styles.txtV}>
                 <TextInput style={styles.txt}

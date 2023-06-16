@@ -1,32 +1,76 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import {NavigationContainer} from "@react-navigation/native";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
+import * as React from 'react';
+import { ImageBackground, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-function Home() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
-      </View>
-    );
-  }
-  
-  function SettingsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
-export function HomeScreen() {
+function Photos() {
   return (
-    <View>
-        <NavigationContainer>
-         <Tab.Navigator>
-         <Tab.Screen name='Home' component={Home}/>
-         <Tab.Screen name='setting' component={SettingsScreen}/>
-         </Tab.Navigator>
-        </NavigationContainer>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Photos!</Text>
     </View>
-  )
+  );
 }
+
+function Setting() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Setting!</Text>
+    </View>
+  );
+}
+
+function Videos() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Videos!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Photos"
+      screenOptions={{
+        tabBarActiveTintColor: '#e91e63', 
+      }}
+    >
+      <Tab.Screen
+      
+        name="Pictures"
+        component={Photos}
+        options={{
+          tabBarLabel:"Photos",
+          tabBarIcon:({color, size})=>(
+            <MaterialCommunityIcons name="image" size={size} color={color}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Videos"
+        component={Videos}
+        options={{
+          tabBarLabel: 'Videos',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="video" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={Setting}
+        options={{
+          tabBarLabel: 'Setting',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="cog" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+export default MyTabs;
