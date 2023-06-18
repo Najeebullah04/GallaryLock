@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import {Button, StyleSheet, Text ,TouchableHighlight, TextInput, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
+
 function LockScreen() {
+    const navigation = useNavigation();
     const [text,setText]=useState('');
     const handleNumberPress = (number) => {
         setText((prevText) => prevText + number);
@@ -20,8 +23,8 @@ function LockScreen() {
                  />
                  <TouchableOpacity
                  onPress={del}>
-                  <Text style={styles.del}><Icon name="arrow-left" size={25} color="white" /></Text>
-                  </TouchableOpacity>                          
+                <Text style={styles.del}><Icon name="arrow-left" size={25} color="white" /></Text>
+                </TouchableOpacity>                          
             </View>
             <View style={styles.keyboardContainer}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
@@ -37,17 +40,20 @@ function LockScreen() {
            <TouchableOpacity
            underlayColor="#EAEAEA"
            style={styles.numberButton}           
-           ><Text style={{fontSize:20 , fontWeight:"bold"}}><Icon name="camera" size={25} color="black" /></Text></TouchableOpacity>
+           ><Text style={styles.lastThreeButton}><Icon name="camera" size={25} color="black" /></Text>
+           </TouchableOpacity>
            <TouchableOpacity
            onPress={()=>handleNumberPress(0)}
            underlayColor="#EAEAEA"
            style={styles.numberButton}
-           ><Text style={{fontSize:20 , fontWeight:"bold"}}>0</Text></TouchableOpacity>  
+           ><Text style={styles.lastThreeButton}>0</Text>
+           </TouchableOpacity>  
            <TouchableOpacity
-           onPress={()=>handleNumberPress(number)}
+           onPress={()=>navigation.navigate('home')}
            underlayColor="#EAEAEA"
            style={styles.numberButton}
-           ><Text style={{fontSize:20 , fontWeight:"bold"}}><Icon name="arrow-right" size={25} color="black" /></Text></TouchableOpacity>                         
+           ><Text style={styles.lastThreeButton}><Icon name="arrow-right" size={25} color="black" /></Text>
+           </TouchableOpacity>                         
       </View>      
         </View>   
      );
@@ -102,8 +108,9 @@ const styles=StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
       },
-      ok:{
-        borderRadius:20,
+      lastThreeButton:{
+        fontSize:20 ,
+        fontWeight:"bold"
       }
 })
 
