@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function Videos({navigation}) {
   return (
-    <View>
-      <Text>Videos</Text>
-    </View>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Text>Videos!</Text>
+  </View>
   )
 }

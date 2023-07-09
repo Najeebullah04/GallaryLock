@@ -3,8 +3,9 @@ import React from 'react'
 
 export default function Photos({navigation}) {
   return (
-    <View>
-      <Text>Photos</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Photos!</Text>
+      <Text>Photos!</Text>
     </View>
   )
 }
