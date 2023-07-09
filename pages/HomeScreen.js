@@ -1,70 +1,29 @@
 import * as React from 'react';
-import { ScrollView, ImageBackground, Text,StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ScrollView,Linking,Alert, ImageBackground, Text,StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import {Videos} from './Videos';
-
-function Photos() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Photos!</Text>
-      <Text>Photos!</Text>
-    </View>
-  );
-}
- 
-function Setting() {
-  return (
-    <ScrollView>
-      <View style={styles.setting}>     
-      <Text style={styles.setting}>General </Text> 
-      <View style={{flexDirection:'row' , padding:10}}>
-      <View style={{flexDirection:'row' , padding:10}}>
-        <Icon name='key' size={20}/>
-        <Text style={{ marginLeft:20}}>Change Password</Text>
-          </View>
-        </View> 
-      <Text style={styles.setting}>Advance </Text>  
-      <View style={{ padding:10}}>
-        <View style={{flexDirection:'row' , padding:10}}>
-        <Icon name='circle' size={20}/>
-        <Text style={{ marginLeft:20}}>App Theme</Text>
-          </View>
-        <View style={{flexDirection:'row' , padding:10}}>
-        <Icon name='trash' size={20}/>
-        <Text style={{ marginLeft:20}}>App Delete Protection </Text>
-          </View>
-        
-        </View>
-      <Text style={styles.setting}>AppLock </Text>  
-      <View style={{padding:10}}>
-      <View style={{flexDirection:'row' , padding:10}}>
-        <Text style={{ marginLeft:20}}>Sound</Text>
-          </View>
-      <View style={{flexDirection:'row' , padding:10}}>
-        <Text style={{ marginLeft:20}}>Vibration</Text>
-          </View>
-        </View>
-      <Text></Text>  
-    </View>
-    </ScrollView>
-    
-  );
-}
-
-function Videos() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Videos!</Text>
-    </View>
-  );
-}
+import { Modal } from 'react-native-modal';
+import Setting from './setting';
+import Photos from './Photos';
+import Videos from './Videos';
 
 const Tab = createBottomTabNavigator();
-
 function MyTabs() {
+  
+  const openURL =()=>{
+    const URL = "https://www.google.com"
+    Linking.openURL(URL);
+  }
+  const AlertMsg=()=>{
+     Alert.alert(
+     'information',
+      'Locked files: Your files are stored in internal memory inside the app.'+"\n"+"\n"+
+      'TEMEMBER:Before deleting this app,unlock all pictures and videos from the app. else, the pictures and the videos will be lost forever.'+"\n"+"\n"+
+       "BE CARFUL: Do not factory reset your phone before unlock your files from this app; otherwise, it will be deleted forever."   
+     );
+  }
   return (
     <Tab.Navigator
       initialRouteName="Photos"
@@ -79,9 +38,9 @@ function MyTabs() {
           tabBarLabel:"Photos",
           headerRight:()=>(
             <View style={styles.headerIcon}>
-              <Icon name='folder' style = {styles.headerIcon1} size={20}/>
-              <Icon name='globe' style = {styles.headerIcon1} size={20}/>
-              <Icon name='info' style = {styles.headerIcon1}size={20}/>
+              <Icon name='folder' style = {styles.headerIcon1} size={20} />
+              <Icon name='globe' style = {styles.headerIcon1} size={20}  onPress={openURL} />
+              <Icon name='info' style = {styles.headerIcon1}size={20} onPress={AlertMsg} />
             </View>
               
           ),
@@ -97,8 +56,8 @@ function MyTabs() {
           headerRight:()=>(
             <View style={styles.headerIcon}>
               <Icon name='folder' style = {styles.headerIcon1} size={20}/>
-              <Icon name='globe' style = {styles.headerIcon1} size={20}/>
-              <Icon name='info' style = {styles.headerIcon1}size={20}/>
+              <Icon name='globe' style = {styles.headerIcon1} size={20} onPress={openURL}/>
+              <Icon name='info' style = {styles.headerIcon1}size={20} onPress={AlertMsg}/>
             </View>
           ),
           tabBarLabel: 'Videos',
@@ -126,15 +85,6 @@ const styles= StyleSheet.create({
   },
   headerIcon1:{
    padding:15,
-  },
-  setting:{
-    flex:1,
-
-  },
-  setting:{
-    margin:5, 
-    fontsize: 15,
-     fontWeight:'bold'
   }
 })
 export default MyTabs;

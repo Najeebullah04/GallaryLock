@@ -1,16 +1,45 @@
-import React, { useState } from "react";
+import React, { useRef , useEffect, useState } from "react";
 import {Button, StyleSheet, Text ,TouchableHighlight, TextInput, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
+import { RNCamera } from 'react-native-camera';
+import {Camera} from "expo-camera"
 
 function LockScreen() {
     const navigation = useNavigation();
     const [text,setText]=useState('');
+    // const [hasPermission, setHasPermission] = useState(null);
+    // const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  
+    // useEffect(() => {
+    //   (async () => {
+    //     const { status } = await Camera.requestPermissionsAsync();
+    //     setHasPermission(status === 'granted');
+    //   })();
+    // }, []);
+  
+    // const handleCameraToggle = () => {
+    //   setCameraType(
+    //     cameraType === Camera.Constants.Type.back
+    //       ? Camera.Constants.Type.front
+    //       : Camera.Constants.Type.back
+    //   );
+    // };
+  
+    // if (hasPermission === null) {
+    //   return <View />;
+    // }
+    // if (hasPermission === false) {
+    //   return <Text>No access to camera</Text>;
+    // }
     const handleNumberPress = (number) => {
         setText((prevText) => prevText + number);
       };
       const del =()=>{
         setText(text.slice(0,-1));
+      }
+      const remove=()=>{
+        setText('');
       }
     return (       
         <View style={{flex:1 , backgroundColor: "#29293d"}}>
@@ -20,9 +49,12 @@ function LockScreen() {
                  value={text}
                  onChangeText={setText}
                  keyboardType="numeric"
+                 secureTextEntry={true}
                  />
                  <TouchableOpacity
-                 onPress={del}>
+                 onPress={del}
+                 onLongPress={remove}
+                 >                               
                 <Text style={styles.del}><Icon name="arrow-left" size={25} color="white" /></Text>
                 </TouchableOpacity>                          
             </View>
@@ -36,12 +68,14 @@ function LockScreen() {
           >
             <Text style={styles.numberText}>{number}</Text>
           </TouchableHighlight>
-        ))}      
-           <TouchableOpacity
+        ))} 
+{/* <Camera style={styles.camera} type={cameraType} /> */}
+      <TouchableOpacity
            underlayColor="#EAEAEA"
            style={styles.numberButton}           
-           ><Text style={styles.lastThreeButton}><Icon name="camera" size={25} color="black" /></Text>
+           ><Text style={styles.lastThreeButton}><Icon name="camera" size={25} color="black" onPress={()=>{navigation.navigate("camera")}}/></Text>
            </TouchableOpacity>
+           
            <TouchableOpacity
            onPress={()=>handleNumberPress(0)}
            underlayColor="#EAEAEA"
@@ -63,6 +97,10 @@ const styles=StyleSheet.create({
         fontSize:15, 
         marginTop: 40,
         textAlign:"center"
+    }, 
+    camera: {
+      flex: 1,
+      width: '100%',
     },
     txt:{
         borderBottomWidth:3,
@@ -82,9 +120,10 @@ const styles=StyleSheet.create({
       textAlign:"center",
       paddingTop:5,
       fontSize:20,
+      
     },
     txtV:{
-      marginTop: 320,
+      marginTop: 300,
       flexDirection : "row",
         justifyContent: "center",
         marginBottom:10
