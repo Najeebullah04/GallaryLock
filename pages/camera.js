@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity , Image} from 'react-native';
 import { Camera } from 'expo-camera';
 import Icon from 'react-native-fontawesome';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const CameraScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+    const [cameraRef, setCameraRef] = useState(null);
+    const [capturedImage, setCapturedImage] = useState(null);
   
     useEffect(() => {
       (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
+        const { status } = await Camera.requestCameraPermissionsAsync();
         setHasPermission(status === 'granted');
       })();
     }, []);
   
+    const takePicture = async () => {
+      if (cameraRef) {
+        try {
+          const { uri } = await cameraRef.takePictureAsync();
+          setCapturedImage(uri);
+        } catch (error) {
+          console.log('Error taking picture:', error);
+        }
+      }
+    };
     const handleCameraToggle = () => {
       setCameraType(
         cameraType === Camera.Constants.Type.back
@@ -32,29 +45,64 @@ const CameraScreen = () => {
   
     return (
       <View style={styles.container}>
-        <Camera style={styles.camera} type={cameraType} />
-        <TouchableOpacity style={styles.button} onPress={handleCameraToggle}>
-          <Text>toggle</Text>
+        <Camera style={styles.camera} type={cameraType} 
+        ref={(ref) => setCameraRef(ref)}/>
+        <View style={styles.container1}>
+        <View style={styles.container2}>
+        {capturedImage && (
+          <View style={styles.capturedImage}>
+            <Image
+              source={{ uri: capturedImage }}
+              style={{ width: 50, height: 50 }}
+            />
+          </View>
+        )}
+        </View>
+        <TouchableOpacity style={styles.button} onPress={takePicture}>
+        <MaterialCommunityIcons name="camera" size={30} color={"black"}/>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button1} onPress={handleCameraToggle}>
+        <MaterialCommunityIcons name="camera-switch" size={30} color={"black"}/>
+        </TouchableOpacity>       
+        </View>      
       </View>
     );
   };
   export default CameraScreen;
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      flex:1,
+      
+    },
+    container2: {
+      width:60, 
+      height:60
+    },
+    capturedImage:{
+     margin:5, 
+
+    },
+    container1: { 
+      flexDirection:'row',
+      justifyContent:'center',
+      alignContent:"center",
+      marginTop:0
     },
     camera: {
       flex: 1,
       width: '100%',
     },
-    button: {
-      backgroundColor: 'blue',
-      padding: 16,
+    button1: {
+      marginLeft:100,
+      padding: 10,
       borderRadius: 8,
-      marginTop: 16,
+      marginTop: 10,
+    },
+    button: {
+      marginLeft:80,
+      padding: 10,
+      borderRadius: 8,
+      marginTop: 10,
     },
     buttonText: {
       color: 'white',
