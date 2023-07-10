@@ -4,10 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LockScreen from './pages/LockScreen';
 import MyTabs from './pages/HomeScreen';
 import First from './pages/First';
-import Regiter from './pages/regiter';
+import Regiter from './pages/register';
 import Login from './pages/login';
 import passwordCreate from './pages/passwordCreate';
 import CameraScreen from './pages/camera';
+import YourComponent from './pages/example';
 const stack= createStackNavigator();
 export default function App() {
   return (
@@ -22,7 +23,7 @@ export default function App() {
         {/* <CameraScreen/> */}
       </stack.Navigator>
     </NavigationContainer>
-    
+    //  <YourComponent/>
   );
 }
  

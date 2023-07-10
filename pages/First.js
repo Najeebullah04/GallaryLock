@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-
 const First = () => {
   const navigation = useNavigation();
   return (
@@ -25,12 +24,6 @@ const First = () => {
     </View>
   );
 };
-
-const handleGetStarted = () => {
-  // Handle the "Get Started" button press event
-  console.log('Get Started button pressed');
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
