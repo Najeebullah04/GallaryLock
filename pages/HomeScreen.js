@@ -11,7 +11,7 @@ import Videos from './Videos';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
-  
+   
   const openURL =()=>{
     const URL = "https://www.google.com"
     Linking.openURL(URL);
@@ -21,7 +21,7 @@ function MyTabs() {
      'information',
       'Locked files: Your files are stored in internal memory inside the app.'+"\n"+"\n"+
       'TEMEMBER:Before deleting this app,unlock all pictures and videos from the app. else, the pictures and the videos will be lost forever.'+"\n"+"\n"+
-       "BE CARFUL: Do not factory reset your phone before unlock your files from this app; otherwise, it will be deleted forever."   
+      "BE CARFUL: Do not factory reset your phone before unlock your files from this app; otherwise, it will be deleted forever."   
      );
   }
   return (
@@ -41,8 +41,7 @@ function MyTabs() {
               <Icon name='folder' style = {styles.headerIcon1} size={20} />
               <Icon name='globe' style = {styles.headerIcon1} size={20}  onPress={openURL} />
               <Icon name='info' style = {styles.headerIcon1}size={20} onPress={AlertMsg} />
-            </View>
-              
+            </View>              
           ),
           tabBarIcon:({color, size})=>(
             <MaterialCommunityIcons name="image" size={size} color={color}/>

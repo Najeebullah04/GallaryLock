@@ -8,30 +8,6 @@ import {Camera} from "expo-camera"
 function LockScreen() {
     const navigation = useNavigation();
     const [text,setText]=useState('');
-    // const [hasPermission, setHasPermission] = useState(null);
-    // const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
-  
-    // useEffect(() => {
-    //   (async () => {
-    //     const { status } = await Camera.requestPermissionsAsync();
-    //     setHasPermission(status === 'granted');
-    //   })();
-    // }, []);
-  
-    // const handleCameraToggle = () => {
-    //   setCameraType(
-    //     cameraType === Camera.Constants.Type.back
-    //       ? Camera.Constants.Type.front
-    //       : Camera.Constants.Type.back
-    //   );
-    // };
-  
-    // if (hasPermission === null) {
-    //   return <View />;
-    // }
-    // if (hasPermission === false) {
-    //   return <Text>No access to camera</Text>;
-    // }
     const handleNumberPress = (number) => {
         setText((prevText) => prevText + number);
       };
@@ -74,8 +50,7 @@ function LockScreen() {
            underlayColor="#EAEAEA"
            style={styles.numberButton}           
            ><Text style={styles.lastThreeButton}><Icon name="camera" size={25} color="black" onPress={()=>{navigation.navigate("camera")}}/></Text>
-           </TouchableOpacity>
-           
+           </TouchableOpacity>           
            <TouchableOpacity
            onPress={()=>handleNumberPress(0)}
            underlayColor="#EAEAEA"
@@ -122,9 +97,9 @@ const styles=StyleSheet.create({
       fontSize:20,
       
     },
-    txtV:{
-      marginTop: 300,
-      flexDirection : "row",
+        txtV:{
+        marginTop: 300,
+        flexDirection : "row",
         justifyContent: "center",
         marginBottom:10
     },

@@ -1,9 +1,25 @@
 import { View,ScrollView,StyleSheet, Text } from 'react-native'
-import React from 'react'
+import React ,{useState , useEffect} from 'react'
 import Icon from 'react-native-fontawesome'
 import * as Font from 'expo-font'
 
 export default function Setting() {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    const loadFonts = async () => {
+      await Font.loadAsync({
+        'fa-solid-900': require('../assets/cdnjs/fa-solid-900.ttf'), // Replace with the correct path to your font file
+      });
+      setFontLoaded(true);
+    };
+
+    loadFonts();
+  }, []);
+
+  if (!fontLoaded) {
+    return <Text>Loading...</Text>; // or any loading indicator
+  }
   return (
     <View style={styles.Main}>
       <ScrollView>
