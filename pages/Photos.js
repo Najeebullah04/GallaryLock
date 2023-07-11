@@ -1,11 +1,17 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 
-export default function Photos({navigation}) {
+export default function Photos({capturedImage}) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Photos!</Text>
-      <Text>Photos!</Text>
+     {capturedImage && ( 
+      <View>
+        <Image 
+        source={{uri : capturedImage}}
+        style={{width:200 , height:200}}
+        />
+      </View>
+     )}
     </View>
   )
 }
